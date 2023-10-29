@@ -1,4 +1,4 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
 import Body from "./components/Body";
@@ -7,47 +7,53 @@ import AboutUs from "./components/AboutUs";
 import Error from "./components/Error";
 import RestaurantMenu from "./components/RestaurantMenu";
 
+const Grocery = lazy(() => import("./components/Grocery"));
 
 const AppLayout = () => {
   return (
     <div className="app">
       <div className="header-app">
-      <Header />
+        <Header />
       </div>
       <div className="body-app">
-      <Outlet />
+        <Outlet />
       </div>
-      
     </div>
   );
 };
 
 const appRouter = createBrowserRouter([
   {
-    path  :"/",
-    element : <AppLayout />,
-    children:[
+    path: "/",
+    element: <AppLayout />,
+    children: [
       {
-        path : "/",
-        element : <Body />
+        path: "/",
+        element: <Body />,
       },
       {
-        path : "/about",
-        element : <AboutUs />
+        path: "/about",
+        element: <AboutUs />,
       },
       {
-        path : "/contact",
-        element : <h1>Contact Us</h1>
-      },{
-        path : "/restaurants/:resId",
-        element : <RestaurantMenu />
+        path: "/contact",
+        element: <h1>Contact Us</h1>,
       },
-
+      {
+        path: "/restaurants/:resId",
+        element: <RestaurantMenu />,
+      },
+      {
+        path: "/grocery",
+        element: (
+          <Suspense fallback={<h1>Loading</h1>}>
+            <Grocery />
+          </Suspense>
+        ),
+      },
     ],
-    errorElement: <Error />
+    errorElement: <Error />,
   },
-  
-
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
