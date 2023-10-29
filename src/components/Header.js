@@ -22,21 +22,21 @@ const Header = () => {
   //   }, []);
 
   return (
-    <div className="header">
-      <div className="logo-container">
-        <img className="logo" src={LOGO_URL} alt="logo" />
+    <div className="flex justify-between bg-gray-200 shadow-lg">
+      <div className="m-5">
+        <img className="w-20" src={LOGO_URL} alt="logo" />
       </div>
-      <div className="nav-bar">
-        <ul className="nav-items">
-          <li>Online Status: {onlineStatus===true?"✅":"❌"}</li>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/about">About Us</Link></li>
-          <li><Link to = "/contact">Contact Us</Link></li>
-          <li>Cart</li>
-          <li>Orders</li>
-          <li><Link to="/grocery">Grocery</Link></li>
-          <li>My Account</li>
-          <button className="login-btn" onClick={()=>handleLogin()}>{btnName}</button>
+      <div className="flex items-center">
+        <ul className="flex  p-8 m-4">
+          <li className="px-4">Online Status: {onlineStatus===true?"✅":"❌"}</li>
+          <li className="px-4"><Link to="/">Home</Link></li>
+          <li className="px-4"><Link to="/about">About Us</Link></li>
+          <li className="px-4"><Link to = "/contact">Contact Us</Link></li>
+          <li className="px-4">Cart</li>
+          <li className="px-4">Orders</li>
+          <li className="px-4"><Link to="/grocery">Grocery</Link></li>
+          <li className="px-4">My Account</li>
+          <button className="px-4" onC lick={()=>handleLogin()}>{btnName}</button>
         </ul>
       </div>
     </div>

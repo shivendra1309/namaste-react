@@ -42,49 +42,50 @@ const Body = () => {
     return <Shimmer />;
   }
 
-  
   return (
-    <div className="body">
-      <div className="search">
-        <input
-          type="text"
-          name="search-box"
-          id="search-box"
-          placeholder="search"
-          value={searchText}
-          onChange={(e) => {
-            setSearchText(e.target.value);
-          }}
-        />
-        <button
-          className="search-btn"
-          onClick={() => {
-            console.log("search clicked with word = ", searchText);
-            filteredResObj = restroList.filter((restaurant) => {
-              return restaurant?.info.name
-                .toLowerCase()
-                .includes(searchText.toLowerCase());
-            });
-            setFilteredResList(filteredResObj);
-          }}
-        >
-          Search
-        </button>
+    <div className="bg-gray-50">
+      <div className="flex">
+        <div className="search m-4 p-4">
+          <input
+            type="text"
+            className="border border-solid border-black rounded-md"
+            id="search-box"
+            placeholder="search"
+            value={searchText}
+            onChange={(e) => {
+              setSearchText(e.target.value);
+            }}
+          />
+          <button
+            className="px-4 py-1  shadow-xl bg-green-200 m-4 rounded-md"
+            onClick={() => {
+              console.log("search clicked with word = ", searchText);
+              filteredResObj = restroList.filter((restaurant) => {
+                return restaurant?.info.name
+                  .toLowerCase()
+                  .includes(searchText.toLowerCase());
+              });
+              setFilteredResList(filteredResObj);
+            }}
+          >
+            Search
+          </button>
+        </div>
+        <div className="p-4 m-8 ">
+          <button
+            className="px-2 py-1 bg-gray-200  shadow-xl rounded-md"
+            onClick={() => {
+              filteredResObj = restroList.filter((restaurant) => {
+                return restaurant?.info.avgRating > 4;
+              });
+              setFilteredResList(filteredResObj);
+            }}
+          >
+            Top Rated Restaurants
+          </button>
+        </div>
       </div>
-      <div className="top-rated">
-        <button
-          className="top-rated-btn"
-          onClick={() => {
-            filteredResObj = restroList.filter((restaurant) => {
-              return restaurant?.info.avgRating > 4;
-            });
-            setFilteredResList(filteredResObj);
-          }}
-        >
-          Top Rated Restaurants
-        </button>
-      </div>
-      <div className="restro-container">
+      <div className="flex flex-wrap">
         {filteredResList.map((restaurant) => {
           return (
             <Link
