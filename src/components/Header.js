@@ -1,13 +1,16 @@
-import {  useState } from "react";
+import {  useContext, useState } from "react";
 import { LOGO_URL } from "../utils/constants";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 
 
 
 const Header = () => {
   const [btnName, setBtnName] = useState("Login");
    const onlineStatus = useOnlineStatus();
+   const {loggedInUser} = useContext(UserContext);
+   console.log("userlogged ", loggedInUser);
 
   const handleLogin = () => {
     if(btnName === "Login"){
@@ -36,7 +39,8 @@ const Header = () => {
           <li className="px-4">Orders</li>
           <li className="px-4"><Link to="/grocery">Grocery</Link></li>
           <li className="px-4">My Account</li>
-          <button className="px-4" onC lick={()=>handleLogin()}>{btnName}</button>
+          <button className="px-4" onClick={()=>handleLogin()}>{btnName}</button>
+        <li className="px-4">{loggedInUser}</li>
         </ul>
       </div>
     </div>

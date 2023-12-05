@@ -1,4 +1,4 @@
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, { withPromotedLabel } from "./RestaurantCard";
 import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
@@ -8,6 +8,8 @@ const Body = () => {
   const [restroList, setRestroList] = useState([]);
   const [filteredResList, setFilteredResList] = useState([]);
   const [searchText, setSearchText] = useState("");
+
+  const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
 
   console.log("typing");
 
@@ -30,7 +32,7 @@ const Body = () => {
     console.log(restroList);
   };
 
-  onlineStatus = useOnlineStatus();
+  const onlineStatus = useOnlineStatus();
   if (onlineStatus === false)
     return (
       <h1>
@@ -41,6 +43,7 @@ const Body = () => {
   if (filteredResList.length === 0) {
     return <Shimmer />;
   }
+  
 
   return (
     <div className="bg-gray-50">
@@ -85,14 +88,18 @@ const Body = () => {
           </button>
         </div>
       </div>
-      <div className="flex flex-wrap">
+      <div className="flex flex-wrap  mx-auto w-10/12 content-center">
         {filteredResList.map((restaurant) => {
           return (
             <Link
               to={"/restaurants/" + restaurant?.info.id}
               key={restaurant?.info.id}
             >
-              <RestaurantCard resData={restaurant} />{" "}
+              {restaurant?.info.aggregatedDiscountInfoV3 ? (
+                <RestaurantCardPromoted resData={restaurant} />
+              ) : (
+                <RestaurantCard resData={restaurant} />
+              )}
             </Link>
           );
         })}
